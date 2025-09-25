@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cybersecurity SaaS Platform Design System */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Cyber Theme Colors */
+    --background: 210 100% 4%; /* Deep dark blue-black */
+    --foreground: 180 100% 95%; /* Bright cyan-white */
+    
+    /* Cyber Neon Palette */
+    --cyber-cyan: 180 100% 50%; /* Electric cyan */
+    --cyber-green: 120 100% 50%; /* Electric green */
+    --cyber-purple: 270 100% 70%; /* Electric purple */
+    --cyber-red: 0 100% 60%; /* Critical red */
+    --cyber-orange: 30 100% 60%; /* Warning orange */
+    
+    /* Status Colors */
+    --critical: 0 100% 60%; /* Red for critical */
+    --high: 30 100% 60%; /* Orange for high */
+    --medium: 60 100% 50%; /* Yellow for medium */
+    --low: 120 100% 40%; /* Green for low */
+    --info: 180 100% 50%; /* Cyan for info */
+
+    /* Cyber Card System */
+    --card: 210 100% 8%; /* Dark blue card background */
+    --card-foreground: 180 100% 95%; /* Cyan-white text */
+    
+    /* Cyber Popover */
+    --popover: 210 100% 6%; /* Darker popover */
+    --popover-foreground: 180 100% 95%;
+    
+    /* Cyber Primary (Electric Cyan) */
+    --primary: 180 100% 50%; /* Electric cyan */
+    --primary-foreground: 210 100% 4%; /* Dark background */
+    
+    /* Cyber Secondary (Dark with cyan glow) */
+    --secondary: 210 100% 12%; /* Dark blue-grey */
+    --secondary-foreground: 180 100% 85%; /* Light cyan */
+    
+    /* Cyber Muted */
+    --muted: 210 50% 15%; /* Muted dark blue */
+    --muted-foreground: 180 50% 65%; /* Muted cyan */
+    
+    /* Cyber Accent (Electric Purple) */
+    --accent: 270 100% 70%; /* Electric purple */
+    --accent-foreground: 210 100% 4%; /* Dark background */
+    
+    /* Destructive/Critical */
+    --destructive: 0 100% 60%; /* Critical red */
+    --destructive-foreground: 0 0% 100%; /* White text */
+    
+    /* Cyber Borders & Inputs */
+    --border: 180 100% 20%; /* Cyan border */
+    --input: 210 100% 8%; /* Dark input background */
+    --ring: 180 100% 50%; /* Cyan focus ring */
+
+    /* Cyber Gradients */
+    --gradient-cyber: linear-gradient(135deg, hsl(var(--cyber-cyan)), hsl(var(--cyber-purple)));
+    --gradient-critical: linear-gradient(135deg, hsl(var(--cyber-red)), hsl(var(--cyber-orange)));
+    --gradient-secure: linear-gradient(135deg, hsl(var(--cyber-green)), hsl(var(--cyber-cyan)));
+    --gradient-dark: linear-gradient(135deg, hsl(var(--background)), hsl(var(--card)));
+    
+    /* Cyber Shadows & Glows */
+    --glow-cyan: 0 0 20px hsl(var(--cyber-cyan) / 0.5);
+    --glow-purple: 0 0 20px hsl(var(--cyber-purple) / 0.5);
+    --glow-critical: 0 0 20px hsl(var(--cyber-red) / 0.5);
+    --glow-secure: 0 0 20px hsl(var(--cyber-green) / 0.5);
+    
+    /* Cyber Animation Timing */
+    --transition-cyber: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-glow: box-shadow 0.3s ease-in-out;
+    
+    --radius: 0.5rem;
+  }
+}
+
+@layer components {
+  /* Cyber Grid Pattern */
+  .cyber-grid {
+    background-image: 
+      linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  /* Cyber Glow Effects */
+  .glow-cyan {
+    box-shadow: var(--glow-cyan);
+  }
+  
+  .glow-purple {
+    box-shadow: var(--glow-purple);
+  }
+  
+  .glow-critical {
+    box-shadow: var(--glow-critical);
+  }
+  
+  .glow-secure {
+    box-shadow: var(--glow-secure);
+  }
+  
+  /* Cyber Button Variants */
+  .btn-cyber {
+    @apply bg-gradient-to-r from-primary to-accent text-primary-foreground;
+    @apply border border-primary/50 rounded-lg px-6 py-3;
+    @apply transition-all duration-300 ease-in-out;
+    @apply hover:shadow-[0_0_20px_hsl(var(--primary)/0.5)] hover:scale-105;
+  }
+  
+  .btn-critical {
+    @apply bg-gradient-to-r from-destructive to-high text-white;
+    @apply border border-destructive/50 rounded-lg px-6 py-3;
+    @apply transition-all duration-300 ease-in-out;
+    @apply hover:shadow-[0_0_20px_hsl(var(--destructive)/0.5)] hover:scale-105;
+  }
+  
+  /* Cyber Card */
+  .card-cyber {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50;
+    @apply rounded-lg p-6 transition-all duration-300;
+    @apply hover:border-primary/50 hover:shadow-[0_0_15px_hsl(var(--primary)/0.2)];
+  }
+  
+  /* Status Indicators */
+  .status-critical {
+    @apply text-critical border-critical/30 bg-critical/10;
+  }
+  
+  .status-high {
+    @apply text-high border-high/30 bg-high/10;
+  }
+  
+  .status-medium {
+    @apply text-medium border-medium/30 bg-medium/10;
+  }
+  
+  .status-low {
+    @apply text-low border-low/30 bg-low/10;
+  }
+  
+  /* Cyber Text Effects */
+  .text-cyber-glow {
+    text-shadow: 0 0 10px hsl(var(--primary));
+  }
+  
+  .text-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-['Inter'];
+    background-image: 
+      radial-gradient(circle at 20% 80%, hsl(var(--cyber-purple) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--cyber-cyan) / 0.1) 0%, transparent 50%);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-['JetBrains_Mono'] font-semibold;
+  }
+}
