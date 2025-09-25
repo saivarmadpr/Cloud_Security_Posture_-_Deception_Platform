@@ -1,28 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CyberShield - AWS Cloud Security Scanner</title>
-    <meta name="description" content="Professional cybersecurity SaaS platform for AWS cloud misconfiguration scanning and security analysis" />
-    <meta name="author" content="CyberShield Security" />
-    <meta name="keywords" content="cybersecurity, AWS security, cloud security, misconfiguration scanner, security dashboard" />
-
-    <meta property="og:title" content="CyberShield - AWS Cloud Security Scanner" />
-    <meta property="og:description" content="Professional cybersecurity SaaS platform for AWS cloud misconfiguration scanning and security analysis" />
-    <meta property="og:type" content="website" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@cybershield_sec" />
-    
-    <!-- Cyber Security Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield - AWS Security Scanner</title>
+    <meta name="description" content="Professional cybersecurity platform for AWS cloud security scanning">
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  </head>
+</head>
+<body>
+    <div class="cyber-grid">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="nav-brand">
+                    <div class="shield-icon">🛡️</div>
+                    <span>CyberShield</span>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#" class="nav-link active">Dashboard</a>
+                    <a href="#" class="nav-link">Scanner</a>
+                    <a href="#" class="nav-link">Reports</a>
+                </nav>
+                <div class="nav-actions">
+                    <div class="status-indicator">
+                        <div class="pulse-dot"></div>
+                        <span>System Online</span>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+        <!-- Main Content -->
+        <main class="main">
+            <div class="container">
+                <!-- Hero Section -->
+                <section class="hero">
+                    <h1 class="hero-title">
+                        <span class="shield-icon">🛡️</span>
+                        CyberShield
+                    </h1>
+                    <p class="hero-subtitle">AWS Cloud Security Misconfiguration Scanner</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="startScan()">
+                            <span>🔍</span> Start New Scan
+                        </button>
+                        <button class="btn btn-critical" onclick="showCritical()">
+                            <span>⚠️</span> View Critical Issues
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Status Cards -->
+                <section class="status-grid">
+                    <div class="status-card success">
+                        <div class="status-icon">👁️</div>
+                        <div class="status-content">
+                            <h3>Last Scan</h3>
+                            <div class="status-value">2 hours ago</div>
+                            <div class="status-desc">AWS Infrastructure</div>
+                        </div>
+                    </div>
+                    <div class="status-card critical">
+                        <div class="status-icon">⚠️</div>
+                        <div class="status-content">
+                            <h3>Critical Issues</h3>
+                            <div class="status-value">3</div>
+                            <div class="status-desc">Require immediate attention</div>
+                        </div>
+                    </div>
+                    <div class="status-card info">
+                        <div class="status-icon">🖥️</div>
+                        <div class="status-content">
+                            <h3>Resources Scanned</h3>
+                            <div class="status-value">247</div>
+                            <div class="status-desc">Across 5 AWS services</div>
+                        </div>
+                    </div>
+                    <div class="status-card medium">
+                        <div class="status-icon">📊</div>
+                        <div class="status-content">
+                            <h3>Security Score</h3>
+                            <div class="status-value">78%</div>
+                            <div class="status-desc">Above baseline</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Security Findings -->
+                <section class="findings-section">
+                    <div class="findings-header">
+                        <div>
+                            <h2>Security Findings</h2>
+                            <p>Recent misconfiguration scan results</p>
+                        </div>
+                        <div class="last-updated">
+                            <span>Last Updated: </span>
+                            <span class="timestamp">2 hours ago</span>
+                        </div>
+                    </div>
+
+                    <div class="findings-list" id="findingsList">
+                        <!-- Findings will be populated by JavaScript file -->
+                    </div>
+
+                    <div class="findings-footer">
+                        <button class="btn btn-secondary" onclick="viewAllFindings()">
+                            <span>👁️</span> View All Findings
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Bot Assistant -->
+        <div class="bot-container">
+            <div class="chat-window" id="chatWindow">
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <span class="bot-icon">🤖</span>
+                        <span>Security Assistant</span>
+                    </div>
+                    <button class="close-btn" onclick="toggleBot()">✕</button>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be populated by JavaScript -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Ask about security findings..." onkeypress="handleKeyPress(event)">
+                    <button onclick="sendMessage()">📤</button>
+                </div>
+            </div>
+            <button class="bot-toggle" id="botToggle" onclick="toggleBot()">
+                <span id="botIcon">💬</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
