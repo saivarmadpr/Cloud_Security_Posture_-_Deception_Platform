@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "@types/react": "^19.1.13"
+  },
+  "dependencies": {
+    "react-dom": "^19.1.1"
+  }
+}
