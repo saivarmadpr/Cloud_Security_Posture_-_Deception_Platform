@@ -236,3 +236,21 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+async function triggerScan() {
+  const target = document.getElementById("targetInput").value;
+  
+  try {
+    const response = await fetch("https://xnb05afp8b.execute-api.us-west-2.amazonaws.com/prod/scan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ target: target })
+    });
+    
+    const result = await response.json();
+    document.getElementById("output").innerText = JSON.stringify(result, null, 2);
+  } catch (error) {
+    console.error("Error triggering scan:", error);
+    document.getElementById("output").innerText = "Error: Could not trigger scan.";
+  }
+}
