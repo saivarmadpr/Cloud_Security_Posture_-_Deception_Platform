@@ -241,7 +241,7 @@ async function triggerScan() {
   const target = document.getElementById("targetInput").value;
   
   try {
-    const response = await fetch("https://xnb05afp8b.execute-api.us-west-2.amazonaws.com/prod/scan", {
+    const response = await fetch("https://xnb05afp8b.execute-api.us-west-2.amazonaws.com/prod", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ target: target })
