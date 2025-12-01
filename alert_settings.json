@@ -1,0 +1,10 @@
+{
+    "slack_enabled": true,
+    "slack_webhook": "https://hooks.slack.com/services/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",
+    "email_enabled": false,
+    "email_recipient": "",
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "smtp_user": "",
+    "smtp_password": ""
+}

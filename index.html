@@ -1,142 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberShield - AWS Security Scanner</title>
-    <meta name="description" content="Professional cybersecurity platform for AWS cloud security scanning">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>CloudShield - Cloud Security</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
+
 <body>
-    <div class="cyber-grid">
-        <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <div class="nav-brand">
-                    <div class="shield-icon">🛡️</div>
-                    <span>CyberShield</span>
-                </div>
-                <nav class="nav-menu">
-                    <a href="#" class="nav-link active">Dashboard</a>
-                    <a href="#" class="nav-link">Scanner</a>
-                    <a href="#" class="nav-link">Reports</a>
-                </nav>
-                <div class="nav-actions">
-                    <div class="status-indicator">
-                        <div class="pulse-dot"></div>
-                        <span>System Online</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main">
-            <div class="container">
-                <!-- Hero Section -->
-                <section class="hero">
-                    <h1 class="hero-title">
-                        <span class="shield-icon">🛡️</span>
-                        CyberShield
-                    </h1>
-                    <p class="hero-subtitle">AWS Cloud Security Misconfiguration Scanner</p>
-                    <div class="hero-actions">
-                        <button class="btn btn-primary" onclick="startScan()">
-                            <span>🔍</span> Start New Scan
-                        </button>
-                        <button class="btn btn-critical" onclick="showCritical()">
-                            <span>⚠️</span> View Critical Issues
-                        </button>
-                    </div>
-                </section>
-
-                <!-- Status Cards -->
-                <section class="status-grid">
-                    <div class="status-card success">
-                        <div class="status-icon">👁️</div>
-                        <div class="status-content">
-                            <h3>Last Scan</h3>
-                            <div class="status-value">2 hours ago</div>
-                            <div class="status-desc">AWS Infrastructure</div>
-                        </div>
-                    </div>
-                    <div class="status-card critical">
-                        <div class="status-icon">⚠️</div>
-                        <div class="status-content">
-                            <h3>Critical Issues</h3>
-                            <div class="status-value">3</div>
-                            <div class="status-desc">Require immediate attention</div>
-                        </div>
-                    </div>
-                    <div class="status-card info">
-                        <div class="status-icon">🖥️</div>
-                        <div class="status-content">
-                            <h3>Resources Scanned</h3>
-                            <div class="status-value">247</div>
-                            <div class="status-desc">Across 5 AWS services</div>
-                        </div>
-                    </div>
-                    <div class="status-card medium">
-                        <div class="status-icon">📊</div>
-                        <div class="status-content">
-                            <h3>Security Score</h3>
-                            <div class="status-value">78%</div>
-                            <div class="status-desc">Above baseline</div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Security Findings -->
-                <section class="findings-section">
-                    <div class="findings-header">
-                        <div>
-                            <h2>Security Findings</h2>
-                            <p>Recent misconfiguration scan results</p>
-                        </div>
-                        <div class="last-updated">
-                            <span>Last Updated: </span>
-                            <span class="timestamp">2 hours ago</span>
-                        </div>
-                    </div>
-
-                    <div class="findings-list" id="findingsList">
-                        <!-- Findings will be populated by JavaScript file -->
-                    </div>
-
-                    <div class="findings-footer">
-                        <button class="btn btn-secondary" onclick="viewAllFindings()">
-                            <span>👁️</span> View All Findings
-                        </button>
-                    </div>
-                </section>
-            </div>
-        </main>
-
-        <!-- Bot Assistant -->
-        <div class="bot-container">
-            <div class="chat-window" id="chatWindow">
-                <div class="chat-header">
-                    <div class="chat-title">
-                        <span class="bot-icon">🤖</span>
-                        <span>Security Assistant</span>
-                    </div>
-                    <button class="close-btn" onclick="toggleBot()">✕</button>
-                </div>
-                <div class="chat-messages" id="chatMessages">
-                    <!-- Messages will be populated by JavaScript -->
-                </div>
-                <div class="chat-input">
-                    <input type="text" id="messageInput" placeholder="Ask about security findings..." onkeypress="handleKeyPress(event)">
-                    <button onclick="sendMessage()">📤</button>
-                </div>
-            </div>
-            <button class="bot-toggle" id="botToggle" onclick="toggleBot()">
-                <span id="botIcon">💬</span>
-            </button>
+  <div class="cyber-grid">
+    <header class="header">
+      <div class="container">
+        <div class="nav-brand">
+          <span class="shield-icon">🛡️</span>
+          <span>CloudShield</span>
         </div>
-    </div>
+        <nav class="nav-menu">
+          <a href="#" class="nav-link active">Home</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#features" class="nav-link">Features</a>
+          <a href="/honeypot" class="nav-link">Honeypot</a>
+        </nav>
 
-    <script src="script.js"></script>
+        <div class="nav-actions">
+          <a href="#" onclick="openSettings(event)"
+            style="text-decoration: none; margin-right: 15px; font-size: 1.2rem;" title="Alert Settings">⚙️</a>
+          <a href="/scanner" class="btn btn-primary"
+            style="text-decoration: none; padding: 8px 20px; font-size: 0.9rem;">Launch App</a>
+        </div>
+      </div>
+    </header>
+
+
+    <main class="main">
+      <section class="hero" style="margin-top: 80px;">
+        <h1 class="hero-title"><span class="shield-icon">🛡️</span> CloudShield </h1>
+        <p class="hero-subtitle">Next-Generation AWS Cloud Security Scanner</p>
+        <p style="max-width: 600px; margin: 0 auto 30px; color: #a0b0c0; line-height: 1.6;">
+          Secure your cloud infrastructure with our advanced misconfiguration detection engine.
+          Identify vulnerabilities in S3, EC2, RDS, IAM, and more before they become threats.
+        </p>
+        <div class="hero-actions">
+          <a href="/scanner" class="btn btn-primary">Start Scanning Now</a>
+        </div>
+      </section>
+
+      <section id="about" style="padding: 60px 20px; text-align: center;">
+        <h2 style="color: #0cecff; font-family: 'JetBrains Mono'; margin-bottom: 40px;">Why CloudShield?</h2>
+        <div class="status-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="status-card">
+            <div class="status-icon">🚀</div>
+            <h3>Fast & Efficient</h3>
+            <p style="color: #87a8c8; margin-top: 10px;">Scans your entire AWS infrastructure in seconds, providing
+              real-time insights.</p>
+          </div>
+          <div class="status-card">
+            <div class="status-icon">🔒</div>
+            <h3>Comprehensive</h3>
+            <p style="color: #87a8c8; margin-top: 10px;">Checks for hundreds of common misconfigurations across key AWS
+              services.</p>
+          </div>
+          <div class="status-card">
+            <div class="status-icon">📋</div>
+            <h3>Actionable Reports</h3>
+            <p style="color: #87a8c8; margin-top: 10px;">Get detailed findings with clear remediation steps to fix
+              issues immediately.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" style="padding: 60px 20px; text-align: center; background: rgba(0,0,0,0.2);">
+        <h2 style="color: #0cecff; font-family: 'JetBrains Mono'; margin-bottom: 40px;">Key Features</h2>
+        <div class="status-grid" style="grid-template-columns: repeat(3, 1fr); gap: 30px;">
+          <div class="status-card" style="border-color: #2fb5f7;">
+            <h3 style="color: #fff;">S3 Bucket Analysis</h3>
+            <p style="color: #87a8c8; margin-top: 10px;">Detect public buckets, missing encryption, and disabled
+              versioning.</p>
+          </div>
+          <div class="status-card" style="border-color: #2fb5f7;">
+            <h3 style="color: #fff;">IAM Auditing</h3>
+            <p style="color: #87a8c8; margin-top: 10px;">Identify overly permissive policies and users without MFA.</p>
+          </div>
+          <div class="status-card" style="border-color: #2fb5f7;">
+            <h3 style="color: #fff;">RDS Security</h3>
+            <p style="color: #87a8c8; margin-top: 10px;">Ensure databases are encrypted and not publicly accessible.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="compliance" style="padding: 60px 20px; text-align: center;">
+        <h2 style="color: #0cecff; font-family: 'JetBrains Mono'; margin-bottom: 40px;">Security Standards</h2>
+        <div style="display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; align-items: center;">
+          <div
+            style="color: #fff; font-size: 1.2rem; border: 1px solid #0cecff; padding: 15px 30px; border-radius: 8px;">
+            CIS Benchmarks</div>
+          <div
+            style="color: #fff; font-size: 1.2rem; border: 1px solid #0cecff; padding: 15px 30px; border-radius: 8px;">
+            AWS Well-Architected</div>
+          <div
+            style="color: #fff; font-size: 1.2rem; border: 1px solid #0cecff; padding: 15px 30px; border-radius: 8px;">
+            NIST 800-53</div>
+        </div>
+      </section>
+
+      <section id="honeypot-teaser" style="padding: 60px 20px; text-align: center; background: rgba(10, 25, 47, 0.8);">
+        <h2 style="color: #ff0055; font-family: 'JetBrains Mono'; margin-bottom: 20px;">Active Defense</h2>
+        <p style="color: #a0b0c0; max-width: 600px; margin: 0 auto 30px;">
+          Deploy AI-powered honeypots to deceive attackers and gather threat intelligence in real-time.
+        </p>
+        <a href="/honeypot" class="btn btn-critical">Deploy Honeypot</a>
+      </section>
+
+      <section id="alerts-promo"
+        style="padding: 40px 20px; text-align: center; background: rgba(255, 176, 64, 0.1); border-top: 1px solid rgba(255, 176, 64, 0.3); border-bottom: 1px solid rgba(255, 176, 64, 0.3);">
+        <div
+          style="max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+          <div style="font-size: 2.5rem;">⚡</div>
+          <div style="text-align: left;">
+            <h3 style="color: #ffb040; margin-bottom: 5px;">Real-time Alerts</h3>
+            <p style="color: #a0b0c0; margin: 0;">Get instant notifications via <strong>Slack</strong> or
+              <strong>Email</strong> when critical threats are detected.
+            </p>
+          </div>
+          <button onclick="openSettings(event)" class="btn btn-primary"
+            style="background: #ffb040; border-color: #ffb040; color: #000; font-weight: bold;">Configure
+            Alerts</button>
+        </div>
+      </section>
+
+      <section id="how-it-works" style="padding: 40px 20px; text-align: center; margin-bottom: 60px;">
+        <h2 style="color: #0cecff; font-family: 'JetBrains Mono'; margin-bottom: 40px;">How It Works</h2>
+        <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+          <div style="max-width: 300px; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px;">
+            <div style="font-size: 3rem; color: #2fb5f7; margin-bottom: 15px;">1</div>
+            <h3 style="color: #fff;">Connect</h3>
+            <p style="color: #87a8c8;">Enter your AWS read-only credentials securely. We use temporary sessions.</p>
+          </div>
+          <div style="max-width: 300px; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px;">
+            <div style="font-size: 3rem; color: #2fb5f7; margin-bottom: 15px;">2</div>
+            <h3 style="color: #fff;">Scan</h3>
+            <p style="color: #87a8c8;">Our engine analyzes your resources against 50+ security checks.</p>
+          </div>
+          <div style="max-width: 300px; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px;">
+            <div style="font-size: 3rem; color: #2fb5f7; margin-bottom: 15px;">3</div>
+            <h3 style="color: #fff;">Secure</h3>
+            <p style="color: #87a8c8;">Get a prioritized list of findings and apply recommended fixes.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <span class="close-modal" onclick="closeSettings()">&times;</span>
+      <h2>Alert Settings</h2>
+
+      <div class="form-group">
+        <h3>Slack Integration</h3>
+        <label>
+          <input type="checkbox" id="slackEnabled"> Enable Slack Alerts
+        </label>
+        <input type="text" id="slackWebhook" placeholder="Slack Webhook URL" class="form-input">
+      </div>
+
+      <div class="form-group" style="margin-top: 20px;">
+        <h3>Email Integration</h3>
+        <label>
+          <input type="checkbox" id="emailEnabled"> Enable Email Alerts
+        </label>
+        <input type="email" id="emailRecipient" placeholder="Recipient Email" class="form-input">
+        <input type="text" id="smtpUser" placeholder="SMTP User (Gmail)" class="form-input">
+        <input type="password" id="smtpPassword" placeholder="SMTP App Password" class="form-input">
+      </div>
+
+      <button class="btn btn-primary" onclick="saveSettings()" style="width: 100%; margin-top: 20px;">Save
+        Settings</button>
+    </div>
+  </div>
+
+  <!-- Chat Widget -->
+  <div id="chat-widget-btn" class="chat-widget-btn" onclick="toggleChat()">
+    🤖
+  </div>
+
+  <div id="chat-window" class="chat-window">
+    <div class="chat-header">
+      <span>CloudShield AI</span>
+      <span class="close-chat" onclick="toggleChat()">×</span>
+    </div>
+    <div id="chat-messages" class="chat-messages">
+      <div class="message bot">
+        Hello! I'm your security assistant. Ask me about your findings or how to secure your AWS environment.
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="handleChatInput(event)">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script src="script.js?v=2"></script>
 </body>
+
 </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CloudShield - Scanner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+
+<body class="scanner-page">
+    <div class="cyber-grid">
+        <header class="header">
+            <div class="container">
+                <div class="nav-brand">
+                    <span class="shield-icon">🛡️</span>
+                    <span>CloudShield</span>
+                </div>
+                <nav class="nav-menu">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="#" class="nav-link active" id="nav-dashboard">Dashboard</a>
+                    <a href="#" class="nav-link" id="nav-scanner">Scanner</a>
+                    <a href="/honeypot" class="nav-link" id="nav-honeypot">Honeypot</a>
+                    <a href="#" class="nav-link" id="nav-reports">Reports</a>
+                </nav>
+                <div class="nav-actions">
+                    <div class="status-indicator">
+                        <span class="pulse-dot"></span>
+                        <span>System Online</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="main">
+            <section class="hero">
+                <h1 class="hero-title">Security Scanner</h1>
+                <p class="hero-subtitle">Detect and remediate AWS misconfigurations</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="showScanFormBtn">Start New Scan</button>
+                    <button class="btn btn-secondary" id="demoScanBtn">Run Demo Scan</button>
+                    <button class="btn btn-critical" id="viewCriticalBtn">View Critical Issues</button>
+                </div>
+            </section>
+
+            <section class="status-grid">
+                <div class="status-card success">
+                    <div class="status-icon">👁️</div>
+                    <div class="status-content">
+                        <h3>Last Scan</h3>
+                        <div class="status-value" id="lastScanTime">-</div>
+                        <div class="status-desc">AWS Infrastructure</div>
+                    </div>
+                </div>
+                <div class="status-card critical">
+                    <div class="status-icon">⚠️</div>
+                    <div class="status-content">
+                        <h3>Critical Issues</h3>
+                        <div class="status-value" id="criticalIssues">-</div>
+                        <div class="status-desc">Require immediate attention</div>
+                    </div>
+                </div>
+                <div class="status-card info">
+                    <div class="status-icon">🖥️</div>
+                    <div class="status-content">
+                        <h3>Resources Scanned</h3>
+                        <div class="status-value" id="resourcesScanned">-</div>
+                        <div class="status-desc">Across AWS services</div>
+                    </div>
+                </div>
+                <div class="status-card score">
+                    <div class="status-icon">📊</div>
+                    <div class="status-content">
+                        <h3>Security Score</h3>
+                        <div class="status-value" id="securityScore">-</div>
+                        <div class="status-desc">Above baseline</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scanner Form Modal -->
+            <section id="scanModal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <form id="awsScanForm" class="scan-form">
+                        <label for="accessKeyId">Access Key ID:</label>
+                        <input type="text" id="accessKeyId" name="accessKeyId" required>
+                        <label for="secretAccessKey">Secret Access Key:</label>
+                        <input type="password" id="secretAccessKey" name="secretAccessKey" required>
+                        <button type="submit" class="btn btn-primary">Run Scan</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Findings Section -->
+            <section class="findings-section">
+                <div class="findings-header">
+                    <h2>Security Findings</h2>
+                    <span class="last-updated" id="lastUpdated">Last Updated: -</span>
+                </div>
+                <div class="findings-list" id="findingsList">
+                    <!-- Rendered results by severity go here -->
+                    <div class="finding-item">No scan results yet. Run a scan to see findings.</div>
+                </div>
+                <div class="findings-footer">
+                    <button class="btn btn-secondary" onclick="viewAllFindings()">View All Findings</button>
+                    <button class="btn btn-primary" id="exportReportBtn">Export Report</button>
+                    <button class="btn btn-critical" id="clearFindingsBtn">Clear Findings</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Chat Widget -->
+    <div id="chat-widget-btn" class="chat-widget-btn" onclick="toggleChat()">
+        🤖
+    </div>
+
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <span>CloudShield AI</span>
+            <span class="close-chat" onclick="toggleChat()">×</span>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="message bot">
+                Hello! I'm your security assistant. Ask me about your findings or how to secure your AWS environment.
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="handleChatInput(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</body>
+
+</html>

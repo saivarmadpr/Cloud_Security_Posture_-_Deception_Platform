@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CloudShield - Honeypot Defense</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+
+<body class="honeypot-page">
+    <div class="cyber-grid">
+        <header class="header">
+            <div class="container">
+                <div class="nav-brand">
+                    <span class="shield-icon">🛡️</span>
+                    <span>CloudShield</span>
+                </div>
+                <nav class="nav-menu">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/scanner" class="nav-link" id="nav-scanner">Scanner</a>
+                    <a href="#" class="nav-link active" id="nav-honeypot">Honeypot</a>
+                    <a href="#" class="nav-link" id="nav-reports">Reports</a>
+                </nav>
+                <div class="nav-actions">
+                    <div class="status-indicator">
+                        <span class="pulse-dot"></span>
+                        <span>System Online</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="main">
+            <section class="hero">
+                <h1 class="hero-title">AI-Powered Honeypots</h1>
+                <p class="hero-subtitle">Deceive attackers and analyze malicious activity in real-time</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="deployHoneypotBtn">Deploy New Honeypot</button>
+                    <button class="btn btn-secondary" id="viewLogsBtn">View Attack Logs</button>
+                </div>
+            </section>
+
+            <div class="honeypot-dashboard">
+                <!-- Left Column: Active Honeypots -->
+                <section class="active-honeypots-section">
+                    <div class="section-header">
+                        <h2>Active Honeypots</h2>
+                        <span class="badge" id="activeCount">0 Active</span>
+                    </div>
+                    <div class="honeypot-list" id="honeypotList">
+                        <!-- Honeypot cards will be rendered here -->
+                        <div class="empty-state">No honeypots deployed.</div>
+                    </div>
+                </section>
+
+                <!-- Right Column: Attack Logs -->
+                <section class="attack-logs-section">
+                    <div class="section-header">
+                        <h2>Live Attack Feed</h2>
+                        <span class="live-indicator">● LIVE</span>
+                    </div>
+                    <div class="logs-container" id="honeypotLogs">
+                        <div class="log-entry system">System initialized. Waiting for events...</div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Deploy Modal -->
+            <section id="honeypotModal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <form id="honeypotForm" class="scan-form">
+                        <h3>Deploy New Honeypot</h3>
+                        <div class="alert-box"
+                            style="background: rgba(255, 165, 0, 0.1); border: 1px solid orange; color: orange; padding: 10px; margin-bottom: 15px; font-size: 0.9rem;">
+                            <strong>Warning:</strong> This will deploy real AWS resources (e.g., EC2 t2.micro) which may
+                            incur costs.
+                        </div>
+                        <label for="hpAccessKeyId">Access Key ID:</label>
+                        <input type="text" id="hpAccessKeyId" name="accessKeyId" class="form-input" required>
+                        <label for="hpSecretAccessKey">Secret Access Key:</label>
+                        <input type="password" id="hpSecretAccessKey" name="secretAccessKey" class="form-input"
+                            required>
+
+                        <label for="honeypotType">Honeypot Type:</label>
+                        <select id="honeypotType" name="honeypotType" class="form-select">
+                            <option value="ssh">SSH Server (Port 22)</option>
+                            <option value="database">PostgreSQL DB (Port 5432)</option>
+                            <option value="web">Vulnerable Web App (Port 80)</option>
+                            <option value="s3">Public S3 Bucket</option>
+                        </select>
+                        <label for="region">Region:</label>
+                        <select id="region" name="region" class="form-select">
+                            <option value="us-east-1">US East (N. Virginia)</option>
+                            <option value="us-west-2">US West (Oregon)</option>
+                            <option value="eu-west-1">EU (Ireland)</option>
+                        </select>
+                        <label for="name">Name (Optional):</label>
+                        <input type="text" id="honeypotName" placeholder="e.g., prod-db-backup" class="form-input">
+                        <button type="submit" class="btn btn-primary">Deploy Decoy</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Details Modal -->
+            <section id="detailsModal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-modal" id="closeDetails">&times;</span>
+                    <div id="honeypotDetailsContent">
+                        <!-- Details rendered here -->
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-critical" id="terminateHoneypotBtn">Terminate Honeypot</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Chat Widget -->
+    <div id="chat-widget-btn" class="chat-widget-btn" onclick="toggleChat()">
+        🤖
+    </div>
+
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <span>CloudShield AI</span>
+            <span class="close-chat" onclick="toggleChat()">×</span>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="message bot">
+                Hello! I'm your security assistant. Ask me about your findings or how to secure your AWS environment.
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="handleChatInput(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</body>
+
+</html>

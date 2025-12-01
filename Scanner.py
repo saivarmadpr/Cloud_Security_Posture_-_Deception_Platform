@@ -39,18 +39,26 @@ class Finding:
     region: str
     account_id: str
     timestamp: str = None
+    id: str = None
     
     def __post_init__(self):
         if self.timestamp is None:
             self.timestamp = datetime.now().isoformat()
+        if self.id is None:
+            import uuid
+            self.id = f"finding-{uuid.uuid4().hex[:8]}"
 
 class AWSMisconfigurationScanner:
     """Main scanner class for AWS misconfigurations"""
     
-    def __init__(self, profile_name: str = None):
-        """Initialize the scanner with AWS session"""
+    def __init__(self, session=None, profile_name: str = None):
         try:
-            self.session = boto3.Session(profile_name=profile_name)
+            if session is not None:
+                self.session = session
+            elif profile_name is not None:
+                self.session = boto3.Session(profile_name=profile_name)
+            else:
+                self.session = boto3.Session()
             self.account_id = self.session.client('sts').get_caller_identity()['Account']
             self.findings: List[Finding] = []
             logger.info(f"Initialized scanner for AWS Account: {self.account_id}")
@@ -85,6 +93,7 @@ class AWSMisconfigurationScanner:
                         grantee = grant.get('Grantee', {})
                         if grantee.get('URI') == 'http://acs.amazonaws.com/groups/global/AllUsers':
                             findings.append(Finding(
+                                id=f"s3-public-access-{bucket_name}",
                                 service='S3',
                                 resource_id=bucket_name,
                                 resource_type='Bucket',
@@ -120,6 +129,7 @@ class AWSMisconfigurationScanner:
                     versioning = s3_client.get_bucket_versioning(Bucket=bucket_name)
                     if versioning.get('Status') != 'Enabled':
                         findings.append(Finding(
+                            id=f"s3-versioning-{bucket_name}",
                             service='S3',
                             resource_id=bucket_name,
                             resource_type='Bucket',
@@ -163,6 +173,7 @@ class AWSMisconfigurationScanner:
                                 for ip_range in rule.get('IpRanges', []):
                                     if ip_range.get('CidrIp') == '0.0.0.0/0':
                                         findings.append(Finding(
+                                            id=f"ec2-sg-open-{instance_id}",
                                             service='EC2',
                                             resource_id=instance_id,
                                             resource_type='Instance',
@@ -315,6 +326,7 @@ class AWSMisconfigurationScanner:
                     mfa_devices = iam_client.list_mfa_devices(UserName=username)['MFADevices']
                     if not mfa_devices:
                         findings.append(Finding(
+                            id=f"iam-no-mfa-{username}",
                             service='IAM',
                             resource_id=username,
                             resource_type='User',
